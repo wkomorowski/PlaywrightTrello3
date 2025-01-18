@@ -6,18 +6,12 @@ using PlaywrightTrello2nd.Utilities;
 
 namespace PlaywrightTrello2nd;
 
-public class Tests: BaseTest
+public class Tests: PlaywrightTestBase
 {
-    [SetUp]
-    public async Task Setup()
-    {
-        await Page.GotoAsync(BaseUrl);
-        await Page.GetByTestId("bignav").GetByTestId("logo_link").IsVisibleAsync();
-    }
-
     [Test]
     public async Task LoginTest()
     {
+        await Page.GotoAsync("https://www.trello.com");
         var configLoader = new ConfigLoader();
         var credentials = configLoader.GetSection<Credentials>("credentials");
         
@@ -26,10 +20,10 @@ public class Tests: BaseTest
         await page.Login(credentials.Username, credentials.Password);
         await Page.ScreenshotAsync(new PageScreenshotOptions
         {
-            Path = "screen27.jpg",
+            Path = "screen57.jpg",
         });
         await page.ClickCreate();
-        
-        Assert.That(await page.IsMemberLinkExists(), Is.True.ToString());
+
+        Assert.That(await page.IsMemberLinkExists(), Is.True);
     }
 }
