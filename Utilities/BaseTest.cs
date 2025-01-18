@@ -10,7 +10,7 @@ public class BaseTest: PageTest
 
     public BaseTest()
     {
-        BaseUrl = Environment.GetEnvironmentVariable("WEB_URL") ?? "https://trellomello6543.com";
+        BaseUrl = Environment.GetEnvironmentVariable("WEB_URL") ?? "https://test8765.com";
         UserName = Environment.GetEnvironmentVariable("WEB_USERNAME") ?? "admin";
         Password = Environment.GetEnvironmentVariable("WEB_PASSWORD") ?? "123456";
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Playwright;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using PlaywrightTrello2nd.Pages;
 using PlaywrightTrello2nd.Utilities;
@@ -12,25 +13,20 @@ public class Tests: BaseTest
     {
         await Page.GotoAsync(BaseUrl);
         await Page.GetByTestId("bignav").GetByTestId("logo_link").IsVisibleAsync();
-        await Page.ScreenshotAsync(new PageScreenshotOptions
-        {
-            Path = "trello26.jpg",
-        });
     }
 
     [Test]
     public async Task LoginTest()
     {
-        
-        string userName = UserName;
-        string password = Password;
+        var configLoader = new ConfigLoader();
+        var credentials = configLoader.GetSection<Credentials>("credentials");
         
         var page = new LoginPage(Page);
         await page.ClickLoginLnk();
-        await page.Login(userName, password);
+        await page.Login(credentials.Username, credentials.Password);
         await Page.ScreenshotAsync(new PageScreenshotOptions
         {
-            Path = "trello27.jpg",
+            Path = "screen27.jpg",
         });
         await page.ClickCreate();
         
