@@ -6,21 +6,23 @@ using PlaywrightTrello2nd.Utilities;
 
 namespace PlaywrightTrello2nd;
 
-public class Tests: PlaywrightTestBase
+public class LoginTest: PlaywrightTestBase
 {
     [Test]
-    public async Task LoginTest()
+    public async Task Login()
     {
-        await Page.GotoAsync("https://www.trello.com");
+        //Prepare credentials
         var configLoader = new ConfigLoader();
         var credentials = configLoader.GetSection<Credentials>("credentials");
+        
+        await Page.GotoAsync("https://www.trello.com");
         
         var page = new LoginPage(Page);
         await page.ClickLoginLnk();
         await page.Login(credentials.Username, credentials.Password);
         await Page.ScreenshotAsync(new PageScreenshotOptions
         {
-            Path = "screen57.jpg",
+            Path = $"screen{Generator.RandomString(3)}.jpg"
         });
         await page.ClickCreate();
 
