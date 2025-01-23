@@ -26,7 +26,6 @@ public class ApiTests : SetupAPITest
             Assert.That(response.StatusText.ToString(), Is.EqualTo("OK"));
             Assert.That(response.Status.ToString(), Is.EqualTo("200"));
         });
-        //Console.WriteLine(responseData);
         Console.WriteLine($"Status code: {response.Status}.");
         Console.WriteLine($"Status test: {response.StatusText}."); 
     }
