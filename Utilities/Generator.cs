@@ -2,6 +2,7 @@ namespace PlaywrightTrello2nd.Utilities;
 
 public static class Generator
 {
+    
     public static string RandomString(int length)
     {
         const string characters = "ABCDEFGHIJKLMNOPRSTUWVXYZ1234567890abcdefghijklmnoprstuwvxyz!@#$%^&*()";

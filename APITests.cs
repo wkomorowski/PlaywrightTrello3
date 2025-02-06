@@ -8,7 +8,6 @@ namespace PlaywrightTrello2nd;
 
 public class ApiTests : SetupAPITest
 {
-    
     [Test]
     public async Task ApiAuthTest_1()
     {

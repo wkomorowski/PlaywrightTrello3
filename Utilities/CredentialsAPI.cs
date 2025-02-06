@@ -10,7 +10,6 @@ public class CredentialsAPI
         get { return _apikey; }
         set { _apikey = value; }
     }
-
     public string Token
     {
         get { return _token; }

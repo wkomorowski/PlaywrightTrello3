@@ -11,13 +11,11 @@ public class Credentials
         get { return _username; }
         set { _username = value; }
     }
-
     public string Password
     {
         get { return _password; }
         set { _password = value; }
     }
-
     public string Website
     {
         get { return _website; }

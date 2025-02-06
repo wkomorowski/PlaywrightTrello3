@@ -8,7 +8,6 @@ public class ConfigLoader
     private string _configFile = "appsettings.json";
 
     public string ConfigFile => _configFile;
-
     public ConfigLoader()
     {
         var builder = new ConfigurationBuilder()

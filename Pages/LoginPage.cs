@@ -15,7 +15,6 @@ public class LoginPage
     private ILocator MemberLink => _page.GetByTestId("header-member-menu-avatar");
     
     public async Task ClickLoginLnk() => await LoginLink.ClickAsync();
-
     public async Task Login(string userName, string password)
     {
         await UsernameTxt.FillAsync(userName);
