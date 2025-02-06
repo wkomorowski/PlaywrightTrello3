@@ -15,6 +15,7 @@ public class PlaywrightTestBase
         var context = await Browser.NewContextAsync();
         Page = await context.NewPageAsync();
     }
+    
     [TearDown]
     public async Task TearDown()
     {

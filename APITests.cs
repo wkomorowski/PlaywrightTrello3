@@ -28,7 +28,6 @@ public class ApiTests : SetupAPITest
         Console.WriteLine($"Status code: {response.Status}.");
         Console.WriteLine($"Status test: {response.StatusText}."); 
     }
-
     [Test]
     public async Task ApiBoardTest_2()
     {

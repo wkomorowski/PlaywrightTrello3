@@ -2,7 +2,6 @@ using System.Net.Mime;
 using Microsoft.Playwright;
 
 namespace PlaywrightTrello2nd.Pages;
-
 public class LoginPage
 {
     private IPage _page;

@@ -4,7 +4,6 @@ public class CredentialsAPI
 {
     private string _apikey;
     private string _token;
-
     public string ApiKey
     {
         get { return _apikey; }

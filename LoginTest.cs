@@ -16,6 +16,7 @@ public class LoginTest: PlaywrightTestBase
         var credentials = configLoader.GetSection<Credentials>("credentials");
         
         await Page.GotoAsync("https://www.trello.com");
+        
         var page = new LoginPage(Page);
         await page.ClickLoginLnk();
         await page.Login(credentials.Username, credentials.Password);

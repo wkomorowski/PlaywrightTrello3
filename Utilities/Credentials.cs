@@ -16,6 +16,7 @@ public class Credentials
         get { return _password; }
         set { _password = value; }
     }
+    
     public string Website
     {
         get { return _website; }

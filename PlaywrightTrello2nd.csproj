@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utilities\Base\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update=".runsettings">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
