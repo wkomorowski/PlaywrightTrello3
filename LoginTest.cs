@@ -21,7 +21,7 @@ public class LoginTest: PlaywrightTestBase
         await page.Login(credentials.Username, credentials.Password);
         await Page.ScreenshotAsync(new PageScreenshotOptions
         {
-            Path = $"screen{Generator.RandomString(3)}.jpg"
+            Path = $"screen{Generator.RandomString(4)}.jpg"
         });
         await page.ClickCreate();
 
