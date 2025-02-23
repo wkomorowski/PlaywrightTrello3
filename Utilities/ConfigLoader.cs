@@ -2,24 +2,24 @@ using Microsoft.Extensions.Configuration;
 
 namespace PlaywrightTrello2nd.Utilities;
 
-public class ConfigLoader
+public static class ConfigLoader
 {
-    public IConfiguration Configuration { get; }
-    private string _configFile = "appsettings.json";
+    private static readonly IConfiguration _configuration;
+    private static readonly string _configFile = "appsettings.json";
 
     
-    public string ConfigFile => _configFile;
-    public ConfigLoader()
+    //public string ConfigFile => _configFile;
+    static ConfigLoader()
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(ConfigFile);
-        Configuration = builder.Build();
+            .AddJsonFile(_configFile);
+        _configuration = builder.Build();
     }
-    public T GetSection<T>(string sectionName) where T: new()
+    public static T GetSection<T>(string sectionName) where T: new()
     {
         var section = new T();
-        Configuration.GetSection(sectionName).Bind(section);
+        _configuration.GetSection(sectionName).Bind(section);
         return section;
     }
 }

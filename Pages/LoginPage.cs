@@ -21,6 +21,6 @@ public class LoginPage
         await PasswordTxt.FillAsync(password);
         await LoginBtn.ClickAsync();
     }
-    public async Task ClickCreate() => await CreateBtn.ClickAsync();
+    public async Task ClickCreateBoardLink() => await CreateBtn.ClickAsync();
     public async Task<bool> IsMemberLinkExists() => await MemberLink.IsVisibleAsync();
 }

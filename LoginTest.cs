@@ -7,14 +7,26 @@ namespace PlaywrightTrello2nd;
 
 public class LoginTest: PlaywrightTestBase
 {
+    private IPage Page { get; set; }
+    [SetUp]
+    public async Task BeforeEachTest()
+    {
+        var context = await Browser.NewContextAsync();
+        Page = await context.NewPageAsync();
+    }
+    [TearDown]
+    public async Task TearDown()
+    {
+        await Page.CloseAsync();
+        await Browser.CloseAsync();
+    }
     [Test]
     public async Task Login()
     {
         //Prepare credentials
-        var configLoader = new ConfigLoader();
-        var credentials = configLoader.GetSection<Credentials>("credentials");
+        var credentials = ConfigLoader.GetSection<Credentials>("credentials");
         
-        await Page.GotoAsync("https://www.trello.com");
+        await Page.GotoAsync(credentials.Website);
         
         var page = new LoginPage(Page);
         await page.ClickLoginLnk();
@@ -23,7 +35,7 @@ public class LoginTest: PlaywrightTestBase
         {
             Path = $"screen{Generator.RandomString(3)}.jpg"
         });
-        await page.ClickCreate();
+        await page.ClickCreateBoardLink(); //Metoda klika button Create board.
 
         Assert.That(await page.IsMemberLinkExists(), Is.True);
     }

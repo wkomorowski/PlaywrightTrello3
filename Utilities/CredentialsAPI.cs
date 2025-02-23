@@ -4,6 +4,7 @@ public class CredentialsAPI
 {
     private string _apikey;
     private string _token;
+    private string _baseUrl;
     public string ApiKey
     {
         get { return _apikey; }
@@ -13,5 +14,10 @@ public class CredentialsAPI
     {
         get { return _token; }
         set { _token = value; }
+    }
+    public string BaseUrl
+    {
+        get { return _baseUrl; }
+        set { _baseUrl = value; }
     }
 }
