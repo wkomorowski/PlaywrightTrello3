@@ -6,9 +6,7 @@ public static class ConfigLoader
 {
     private static readonly IConfiguration _configuration;
     private static readonly string _configFile = "appsettings.json";
-
     
-    //public string ConfigFile => _configFile;
     static ConfigLoader()
     {
         var builder = new ConfigurationBuilder()

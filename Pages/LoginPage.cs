@@ -6,21 +6,20 @@ public class LoginPage
 {
     private IPage _page;
     public LoginPage(IPage page) => _page = page;
-    private ILocator LoginLink => _page.GetByTestId("bignav").Locator("text=Log in");
-    private ILocator UsernameTxt => _page.Locator("#username");
-    private ILocator PasswordTxt => _page.Locator("#password");
-    private ILocator LoginBtn => _page.Locator("#login-submit");
-    private ILocator CreateBtn => _page.GetByTestId("header-create-menu-button");
-    private ILocator MemberLink => _page.GetByTestId("header-member-menu-avatar");
+    private ILocator loginLink => _page.GetByTestId("bignav").Locator("text=Log in");
+    private ILocator usernameTxt => _page.Locator("#username");
+    private ILocator passwordTxt => _page.Locator("#password");
+    private ILocator loginBtn => _page.Locator("#login-submit");
+    public ILocator CreateBtn => _page.GetByTestId("header-create-menu-button");
+    private ILocator memberLink => _page.GetByTestId("header-member-menu-avatar");
     
-    public async Task ClickLoginLnk() => await LoginLink.ClickAsync();
+    public async Task ClickLoginLnk() => await loginLink.ClickAsync();
     public async Task Login(string userName, string password)
     {
-        await UsernameTxt.FillAsync(userName);
-        await LoginBtn.ClickAsync();
-        await PasswordTxt.FillAsync(password);
-        await LoginBtn.ClickAsync();
+        await usernameTxt.FillAsync(userName);
+        await loginBtn.ClickAsync();
+        await passwordTxt.FillAsync(password);
+        await loginBtn.ClickAsync();
     }
-    public async Task ClickCreateBoardLink() => await CreateBtn.ClickAsync();
-    public async Task<bool> IsMemberLinkExists() => await MemberLink.IsVisibleAsync();
+    public async Task<bool> IsMemberLinkExists() => await memberLink.IsVisibleAsync();
 }

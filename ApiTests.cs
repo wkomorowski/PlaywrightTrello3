@@ -1,27 +1,41 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 using PlaywrightTrello2nd.Pages;
 using PlaywrightTrello2nd.Utilities;
 
 namespace PlaywrightTrello2nd;
 
-public class ApiTests : SetupAPITest
+public class ApiTests : PlaywrightTest
 {
-    private IAPIRequestContext Request;
-    private TrelloService TrelloService;
+    private TrelloService trelloService;
     [SetUp]
     public async Task BeforeEachTest()
     {
-        Request = await Playwright.APIRequest.NewContextAsync();
+        var apiRequest = await Playwright.APIRequest.NewContextAsync();
         var credentials = ConfigLoader.GetSection<CredentialsAPI>("CredentialsAPI");
-        TrelloService = new TrelloService(Request, credentials.BaseUrl, credentials.ApiKey, credentials.Token);
+        trelloService = new TrelloService(apiRequest, credentials.BaseUrl, credentials.ApiKey, credentials.Token);
+    }
+
+    [TearDown]
+    public async Task AfterEachTest()
+    {
+        switch (trelloService)
+        {
+            case IDisposable disposable:
+                disposable.Dispose();
+                break;
+            case IAsyncDisposable asyncDisposable:
+                await asyncDisposable.DisposeAsync();
+                break;
+        }
     }
     
     [Test]
     public async Task ApiAuthTest_1()
     {
-        var response = TrelloService.LoginAuth();
+        var response = trelloService.LoginAuth();
         Assert.Multiple(() =>
         {
             Assert.That(response.Result.StatusText, Is.EqualTo("OK"));
@@ -37,8 +51,7 @@ public class ApiTests : SetupAPITest
         
         var name = Generator.RandomString(5);
         
-        //Creating a new board
-        var response = TrelloService.CreateBoard(name);
+        var response = trelloService.CreateBoard(name);
         Assert.That(response.Result.Status.ToString(), Is.EqualTo("200"));
         
         var responseData = await response.Result.JsonAsync();
@@ -49,12 +62,10 @@ public class ApiTests : SetupAPITest
         Assert.That(boardName, Is.EqualTo(name));
         Console.WriteLine($"Created board name \"{boardName}\" with id {boardId}.");
         
-        //Deleting created board
-        var deleteBoard = TrelloService.Board("delete", boardId.ToString());
+        var deleteBoard = trelloService.Board("delete", boardId.ToString());
         Assert.That(deleteBoard.Result.Status.ToString(), Is.EqualTo("200"));
         
-        //Check if deleted board is really not there anymore
-        var deletedBoard = TrelloService.Board("get", boardId.ToString());
+        var deletedBoard = trelloService.Board("get", boardId.ToString());
         Assert.That(deletedBoard.Result.StatusText, Is.EqualTo("Not Found"));
     }
 }

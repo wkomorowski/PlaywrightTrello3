@@ -4,12 +4,33 @@ namespace PlaywrightTrello2nd.Pages;
 
 public class PlaywrightTestBase
 {
-    public IBrowser Browser { get; set; }
+    protected IBrowser Browser;
+    protected IPlaywright Playwright;
+    protected IBrowserContext Context;
+    protected IPage Page;
 
-    [SetUp]
-    public async Task SetUp()
+    [OneTimeSetUp]
+    public async Task BeforAllTests()
     {
-        var playwright = await Playwright.CreateAsync();
-        Browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
+        Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+        Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
+    }
+    [SetUp]
+    public async Task BeforeEachTests()
+    {
+        Context = await Browser.NewContextAsync();
+        Page = await Context.NewPageAsync();
+    }
+
+    [TearDown]
+    public async Task AfterEachTests()
+    {
+        await Context.DisposeAsync();
+    }
+
+    public async Task AfterAllTests()
+    {
+        await Browser.CloseAsync();
+        Playwright.Dispose();
     }
 }
